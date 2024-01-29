@@ -1,0 +1,31 @@
+{
+  "canisters": {
+    "RealBlock_backend": {
+      "main": "src/RealBlock_backend/main.mo",
+      "type": "motoko"
+    },
+    "RealBlock_frontend": {
+      "dependencies": [
+        "RealBlock_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/RealBlock_frontend/src/index.html"
+      },
+      "source": [
+        "src/RealBlock_frontend/assets",
+        "dist/RealBlock_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+ 
+  
+}
