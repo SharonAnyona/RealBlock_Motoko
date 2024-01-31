@@ -9,9 +9,12 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   const role = document.getElementById("role").value.toString();
   button.setAttribute("disabled", true);
   console.log("id"+ id + "role"+ role);
-  // Interact with foo actor, calling the greet method
+
   const registerUser = await RealBlock_backend.registerUser(id, role);
   console.log(registerUser);
+  document.getElementById("myButton").addEventListener("click", function() {
+    window.location.href = "src/RealBlock_frontend/src/home.html"; 
+     });
   button.removeAttribute("disabled");
 
   document.getElementById("greeting").innerText = greeting;

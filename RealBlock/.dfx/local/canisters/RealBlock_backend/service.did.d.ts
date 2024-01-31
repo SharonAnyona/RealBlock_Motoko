@@ -9,5 +9,9 @@ export interface _SERVICE {
   'addProperty' : ActorMethod<[Property, number], boolean>,
   'getProperty' : ActorMethod<[number], [] | [Property]>,
   'loginUser' : ActorMethod<[number], [] | [User]>,
+  'performTransaction' : ActorMethod<
+    [number, PropertyId, UserId, UserId],
+    boolean
+  >,
   'registerUser' : ActorMethod<[User], boolean>,
 }

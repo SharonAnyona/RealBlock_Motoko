@@ -20,14 +20,6 @@ actor {
     role : Text; // e.g., "buyer", "seller"
   };
 
-  type Transaction = {
-    id : Nat;
-    propertyId : PropertyId;
-    buyerId : UserId;
-    sellerId : UserId;
-    // Additional transaction details...
-  };
-
   var propertiesFiles : [Property] = [];
 
   public type userId = Nat32;
@@ -35,7 +27,6 @@ actor {
   private stable var next : userId = 0;
   private stable var users : Trie.Trie<userId, User> = Trie.empty();
   private stable var properties : Trie.Trie<propertyId, Property> = Trie.empty();
-  private var transactions : Trie.Trie<Nat, Transaction> = Trie.empty();
 
   private func key(x : userId) : Trie.Key<userId> {
     return { hash = x; key = x };
@@ -68,7 +59,7 @@ actor {
       properties,
       key2(property.id),
       Nat32.equal,
-      ?property, // Use ? to indicate an Option type
+      ?property,
     ).0;
 
     return true;
@@ -81,22 +72,68 @@ actor {
     return result;
   };
 
-  // Function to initiate a real estate transaction
-  // public func initiateTransaction(transaction : Transaction) : async Bool {
-  //   transactions := Trie.replace(
-  //     transactions,
-  //    key2(property.id),
-  //     Nat32.equal,
-  //     ?transaction,
-  //   ).0;
-  //   return true;
+  // Function to search for properties based on a query
+  // public func searchProperties(query : Text) : async List<(Property, User)> {
+  //   var searchResults : List<(Property, User)> = [];
+  //   Trie.iter(properties, func (key : Trie.Key<propertyId>, property : Property) {
+  //     if (Text.contains(property.address, query)) {
+  //       let owner = Trie.find(users, key(property.id), Nat32.equal);
+  //       switch (owner) {
+  //         case (?user) {
+  //           searchResults := List.concat(searchResults, List.singleton((property, user)));
+  //         };
+  //         case null {
+
+  //         };
+  //       };
+  //     };
+  //   });
+
+  //   return searchResults;
   // };
 
-  // Function to get transaction information
-  //  public func getTransaction(transactionId : Nat) : async ?Transaction {
-  //     let result = Trie.find(transactions, key(transactionId), Nat32.equal);
-  //     return result;
+  // Function to perform a transaction when a buyer wants to buy land
+  public func performTransaction(
+    transactionId : Nat32,
+    propertyId : PropertyId,
+    buyerId : UserId,
+    sellerId : UserId,
+  ) : async Bool {
+    // Get property information
+    let propertyResult = Trie.find(properties, key(propertyId), Nat32.equal);
 
-  // };
+    switch (propertyResult) {
+      case (?property) {
+        // Check if the property is available for sale or implement other transaction conditions
+
+        // Get buyer and seller information
+        let buyerResult = Trie.find(users, key(buyerId), Nat32.equal);
+        let sellerResult = Trie.find(users, key(sellerId), Nat32.equal);
+
+        switch (buyerResult, sellerResult) {
+          case (?buyer, ?seller) {
+            // Your existing code here...
+            return true;
+          };
+          case (?buyer, _) {
+            // Handle case when seller information is not found
+            return false;
+          };
+          case (_, ?seller) {
+            // Handle case when buyer information is not found
+            return false;
+          };
+          case (null, null) {
+            // Handle cases when buyer or seller information is not found
+            return false;
+          };
+        };
+      };
+      case null {
+        // Handle case when property information is not found
+        return false;
+      };
+    };
+  };
 
 };

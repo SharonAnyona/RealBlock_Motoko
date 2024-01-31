@@ -14,5 +14,6 @@ service : {
   addProperty: (Property, nat32) -> (bool);
   getProperty: (nat32) -> (opt Property);
   loginUser: (nat32) -> (opt User);
+  performTransaction: (nat32, PropertyId, UserId, UserId) -> (bool);
   registerUser: (User) -> (bool);
 }

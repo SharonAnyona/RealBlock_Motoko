@@ -7,6 +7,11 @@ export const idlFactory = ({ IDL }) => {
     'addProperty' : IDL.Func([Property, IDL.Nat32], [IDL.Bool], []),
     'getProperty' : IDL.Func([IDL.Nat32], [IDL.Opt(Property)], []),
     'loginUser' : IDL.Func([IDL.Nat32], [IDL.Opt(User)], []),
+    'performTransaction' : IDL.Func(
+        [IDL.Nat32, PropertyId, UserId, UserId],
+        [IDL.Bool],
+        [],
+      ),
     'registerUser' : IDL.Func([User], [IDL.Bool], []),
   });
 };

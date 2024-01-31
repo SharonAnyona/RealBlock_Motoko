@@ -17926,6 +17926,11 @@ const idlFactory = ({ IDL }) => {
     'addProperty' : IDL.Func([Property, IDL.Nat32], [IDL.Bool], []),
     'getProperty' : IDL.Func([IDL.Nat32], [IDL.Opt(Property)], []),
     'loginUser' : IDL.Func([IDL.Nat32], [IDL.Opt(User)], []),
+    'performTransaction' : IDL.Func(
+        [IDL.Nat32, PropertyId, UserId, UserId],
+        [IDL.Bool],
+        [],
+      ),
     'registerUser' : IDL.Func([User], [IDL.Bool], []),
   });
 };
@@ -21230,10 +21235,13 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   const id = parseInt(document.getElementById("id").value, 10);
   const role = document.getElementById("role").value.toString();
   button.setAttribute("disabled", true);
-  console.log("id"+ id + "role"+role);
-  // Interact with foo actor, calling the greet method
+  console.log("id"+ id + "role"+ role);
+
   const registerUser = await _declarations_RealBlock_backend__WEBPACK_IMPORTED_MODULE_0__.RealBlock_backend.registerUser(id, role);
   console.log(registerUser);
+  document.getElementById("myButton").addEventListener("click", function() {
+    window.location.href = "src/RealBlock_frontend/src/home.html"; 
+     });
   button.removeAttribute("disabled");
 
   document.getElementById("greeting").innerText = greeting;
