@@ -1,41 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>RealBlock</title>
-    <base href="/" />
-    <link rel="icon" href="favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/js" rel="script" href="src/RealBlock_frontend/src/index.js" />
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="css/tiny-slider.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<title>RealBlock Real Estate Solution</title>
+	</head>
   <body>
     <main> 
-      <h1>Welcome to Our Real Estate DAO</h1>
-      <p>Find your dream home today.</p>    
-      <br />
-      <br />
-      <form action="#"><div class="list">
-       <div>
-          <label for="role">Enter your Role: &nbsp;</label>
-          <input id="role" alt="role" type="text" />
-       </div>
-       <br>
-     <div>
-      <label for="id">Enter your id: &nbsp;</label>
-      <input id="id" alt="id" type="number" />
-      
-     </div>
-   <div>
-    <button class="btn"type="submit" id="myButton">Login</button>
-   </div>
-        </div>
-                
-      </form>
-      <section id="greeting"></section>
-    </main>
-    <footer class="footer">
-      <p>&copy; 2023 RealBlock. All rights reserved.</p>
-  </footer>
+      <h1>Find your dream home today.</h1>
+       
+    
+
+      <div class="login_form">
+		<form name="form" method="post" id="form">
+			<div class="input-container">
+				<div class="input-control">
+					
+					<input class="inputfield" type="text" id="txtUid loginName" name="role" placeholder="Role" style="color:#3d3d3d; padding-left:90px">
+				</div>
+			</div>
+			<div class="input-container">
+				<div class="input-control">
+					
+					<input class="inputfield" type="password" id="id" name="id" placeholder="id">
+				</div>
+			</div>
+			<div class="row loginfield" style="padding-top: 10px">
+				<div style="display:inline-block; color:#000">
+					<input type="checkbox" id="remember_id">
+					Remember id
+				</div>
+				<a style="float:right; color:#000; display:block" href="login.html">Forgot id?</a>
+			</div>
+			<div class="center">
+				<div class="space-20"></div>
+				<a class="btn_submit_my login_la">Login</a>
+			</div>
+		</form>
+		<a href="register.html" class="login_laa" style="margin-top: 1rem;">Register</a>
+	</div>
+	<div class="z-mask" style="display: none;"></div>
+	
+
+
+	<script type="text/javascript">
+		var _submit = true;
+		$(".btn_submit_my").click(function () {
+			if (_submit == true) {
+				_submit = false;
+				var loading = //loading
+					  layer.open({
+						type: 2
+						,content: 'loading'
+					  });
+					  
+			} else {
+				return false;
+			}
+			var role = $("input[name='role']").val();
+			// $("input[name=role]").val('+254'+$("input[name=role]").val())
+			if (role.substr(0,2)!=='+2') {
+				role = '+254'+role;
+			}
+			if (role.substr(0,3)!=='+25') {
+				role = '+254'+role;
+			}
+			if (role.substr(0,4)!=='+254') {
+				role = '+254'+role;
+			}
+			var id = $("input[name='id']").val();
+			if (role.length == 0) {
+				layer.close(loading);
+				  layer.open({
+					content: 'Please Enter your Role...'
+					,skin: 'msg'
+					,time: 2 
+				  });
+				_submit = true;
+				return false;
+			}
+			if (id.length == 0) {
+				//layer.close(loading)
+				layer.close(loading);
+					layer.open({
+					content: 'Please Enter your ID...'
+					,skin: 'msg'
+					,time: 2 
+				});
+						   
+				_submit = true;
+				return false;
+			}
+			var isSave = document.getElementById('remember_id').checked;
+			if (isSave) {
+				if (role != "" && id != "") {
+					setCookie('role', role, 7); //7day
+					setCookie('id', id, 7); //7day
+				}
+			} else {
+				clearAllCookie();
+			}
+			var _token = "JELNWQEEPARgGfREwQw8SoLzQIXrNTPBddmRbBvc";
+			var data = {
+				role: role,
+				id: id,
+				_token: _token
+			};
+			$.post("index.html", data, function (result) {
+				layer.close(loading)
+				if (result.code == 200) {
+					
+					layer.close(loading);
+					layer.open({
+						content: 'Login Succeed...'
+						,skin: 'msg'
+						,time: 2 
+					});
+				   
+					location.href = "bkyz2-fmaaa-aaaaa-qaaaq-cai";
+					
+				} else {
+					 layer.open({
+						content: result.msg
+						,skin: 'msg'
+						,time: 2 
+					});
+					  _submit = true;
+					return false;
+				}
+			}, "json");
+		});
+	
+	   
+		function clearAllCookie() {
+			var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+			if (keys) {
+				for (var i = keys.length; i--;)
+					document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+			}
+		}
+	
+	
+		function disclaimer() {
+			var data = {_token: "JELNWQEEPARgGfREwQw8SoLzQIXrNTPBddmRbBvc"};
+			$.post("bkyz2-fmaaa-aaaaa-qaaaq-cai", data, function (result) {
+				if (result.code == 200) {
+					var html = '';
+					html += '<div class="notice">';
+					html += '<div class="notice-tit">' + result.data.title + '</div>';
+					html += '<div class="notice-txt">' + result.data.content + '</div>';
+					html += '<div class="notice-btn">OK</div>';
+					html += '</div>';
+					$(".z-mask").html(html).show();
+				}
+				return false;
+			}, "json");
+		}
+	
+		$("body").on('click', '.notice-btn', function () {
+			setCookie('disclaimerState', true);
+			$(".z-mask").html('').hide();
+		});
+	
+		$(function () {
+			var disclaimerState = getCookie('disclaimerState');
+			var oUser = getCookie('role');
+			var oPswd = getCookie('id');
+			if (oUser && oPswd) {
+				$(".inputfield").val(oUser);
+				$("#id").val(oPswd);
+				document.getElementById('remember_id').checked = true;
+			}
+			
+		});
+	
+	
+		function setCookie(name, value, day) {
+			var date = new Date();
+			date.setDate(date.getDate() + day);
+			document.cookie = name + '=' + value + ';expires=' + date;
+		}
+	
+		function getCookie(name) {
+			var reg = RegExp(name + '=([^;]+)');
+			var arr = document.cookie.match(reg);
+			if (arr) {
+				return arr[1];
+			} else {
+				return '';
+			}
+		}
+	
+		function delCookie(name) {
+			setCookie(name, null, -1);
+		}
+	</script>
+	
+   
+
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
   </body>
 </html>

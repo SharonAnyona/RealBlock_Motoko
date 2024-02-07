@@ -17919,7 +17919,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const idlFactory = ({ IDL }) => {
   const PropertyId = IDL.Nat32;
-  const Property = IDL.Record({ 'id' : PropertyId, 'address' : IDL.Text });
+  const Property = IDL.Record({
+    'id' : PropertyId,
+    'name' : IDL.Text,
+    'size' : IDL.Text,
+    'address' : IDL.Text,
+  });
   const UserId = IDL.Nat32;
   const User = IDL.Record({ 'id' : UserId, 'role' : IDL.Text });
   return IDL.Service({

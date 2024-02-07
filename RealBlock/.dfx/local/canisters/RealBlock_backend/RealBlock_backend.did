@@ -9,6 +9,8 @@ type Property =
  record {
    address: text;
    id: PropertyId;
+   name: text;
+   size: text;
  };
 service : {
   addProperty: (Property, nat32) -> (bool);

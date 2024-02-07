@@ -4,6 +4,7 @@ import Text "mo:base/Text";
 import Array "mo:base/Array";
 import List "mo:base/List";
 import Option "mo:base/Option";
+import Time "mo:base/Time";
 
 actor {
   type PropertyId = Nat32;
@@ -12,6 +13,8 @@ actor {
   type Property = {
     id : PropertyId;
     address : Text;
+    name : Text;
+    size : Text;
 
   };
 
@@ -27,6 +30,7 @@ actor {
   private stable var next : userId = 0;
   private stable var users : Trie.Trie<userId, User> = Trie.empty();
   private stable var properties : Trie.Trie<propertyId, Property> = Trie.empty();
+  // private var transactions : Trie.Trie<Nat, Transaction> = Trie.empty();
 
   private func key(x : userId) : Trie.Key<userId> {
     return { hash = x; key = x };
@@ -111,6 +115,7 @@ actor {
         let sellerResult = Trie.find(users, key(sellerId), Nat32.equal);
 
         switch (buyerResult, sellerResult) {
+
           case (?buyer, ?seller) {
             // Your existing code here...
             return true;

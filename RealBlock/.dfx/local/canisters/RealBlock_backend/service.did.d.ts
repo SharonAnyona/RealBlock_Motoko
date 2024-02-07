@@ -1,7 +1,12 @@
 import type { Principal } from '@dfinity/principal';
 import type { ActorMethod } from '@dfinity/agent';
 
-export interface Property { 'id' : PropertyId, 'address' : string }
+export interface Property {
+  'id' : PropertyId,
+  'name' : string,
+  'size' : string,
+  'address' : string,
+}
 export type PropertyId = number;
 export interface User { 'id' : UserId, 'role' : string }
 export type UserId = number;
