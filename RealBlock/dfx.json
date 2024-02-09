@@ -7,10 +7,16 @@
     "RealBlock_frontend": {
       "dependencies": [
         "RealBlock_backend"
+   
       ],
       "frontend": {
         "entrypoint": "src/RealBlock_frontend/src/index.html"
       },
+   
+      "internet-identity" : {
+        "type": "pull",
+        "id": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+    },
       "source": [
         "src/RealBlock_frontend/assets",
         "dist/RealBlock_frontend/"
