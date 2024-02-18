@@ -18002,7 +18002,7 @@ const createActor = (canisterId, options = {}) => {
   });
 };
 
-const RealBlock_backend = createActor(canisterId);
+const RealBlock_backend = canisterId ? createActor(canisterId) : undefined;
 
 
 /***/ }),

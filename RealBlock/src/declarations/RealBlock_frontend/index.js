@@ -40,4 +40,4 @@ export const createActor = (canisterId, options = {}) => {
   });
 };
 
-export const RealBlock_frontend = createActor(canisterId);
+export const RealBlock_frontend = canisterId ? createActor(canisterId) : undefined;

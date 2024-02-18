@@ -1,0 +1,21 @@
+type UserId = nat32;
+type User = 
+ record {
+   id: UserId;
+   role: text;
+ };
+type PropertyId = nat32;
+type Property = 
+ record {
+   address: text;
+   id: PropertyId;
+   name: text;
+   size: text;
+ };
+service : {
+  addProperty: (Property, nat32) -> (bool);
+  getProperty: (nat32) -> (opt Property);
+  loginUser: (nat32) -> (opt User);
+  performTransaction: (nat32, PropertyId, UserId, UserId) -> (bool);
+  registerUser: (User) -> (bool);
+}
